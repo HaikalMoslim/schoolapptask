@@ -1,0 +1,15 @@
+<%= form_with model: student do |form| %>
+  
+    <div class="m-10">
+      <%= form.label :name %><br>
+      <%= form.text_field :name %>
+      <% @student.errors.full_messages_for(:name).each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+    </div>
+  
+    <div class="m-10">
+      <%= form.button %>
+    </div>
+  <% end %>
+  

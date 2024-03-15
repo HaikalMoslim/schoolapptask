@@ -1,0 +1,22 @@
+<%= form_with model: enrollment, url: enrollments_path do |form| %>
+
+  <div class="m-10">
+    <%= form.label :student_id %> <br>
+    <%= form.collection_select :student_id, Student.all, :id, :name, prompt: "Select Student" %>
+    <% @enrollment.errors.full_messages_for(:student_id).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div class="m-10">
+    <%= form.label :teacher_id %> <br>
+    <%= form.collection_select :teacher_id, Teacher.all, :id, :name, prompt: "Select Teacher" %>
+    <% @enrollment.errors.full_messages_for(:teacher_id).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
+
+  <div class="m-10">
+    <%= form.button %>
+  </div>
+<% end %>
