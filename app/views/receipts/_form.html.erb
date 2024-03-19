@@ -1,7 +1,7 @@
 <%= simple_form_for @receipt, local: true, data: { turbo: false } do |form| %>
   
   <div class="m-10">
-    <%= form.label :user_id, label:"No Ahli", class:"form-label" %> <br>
+    <%= form.label :user_id, label:"User ID", class:"form-label" %> <br>
     <%= form.input_field :user_id, value: current_user.id, class:"form-control", readonly:true %>
   </div>
   <div class="m-10">
