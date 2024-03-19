@@ -4,4 +4,4 @@ class Enrollment < ApplicationRecord
 
   validates :student_id, presence: true
   validates :teacher_id, presence: true
-end
+end 

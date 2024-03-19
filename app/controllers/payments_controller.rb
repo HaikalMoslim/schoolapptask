@@ -1,5 +1,5 @@
 class PaymentsController < ApplicationController
-  before_action :set_payment, only: %i[ show edit update destroy ]
+  # before_action :set_payment, only: %i[ show edit update destroy ]
 
   def index
     @payments = Payment.all
@@ -43,13 +43,13 @@ class PaymentsController < ApplicationController
   end
 
   def destroy
-    @payment = Payment.find(params[:id])
+    @payment = Payment.find_by(id: params[:id])
     if @payment
       @payment.destroy!
       redirect_to payments_path, notice: "Payment deleted"
     else
-      redirect_to payments_path, notice: "Id not found"
-  end
+      redirect_to payments_path, notice: "Payment with ID #{params[:id]} not found"
+    end
 end
 
   private

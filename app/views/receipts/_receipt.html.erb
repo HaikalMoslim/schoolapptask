@@ -1,7 +1,29 @@
-<div id="<%= dom_id receipt %>">
-  <% if action_name != "show" %>
-    <%= link_to "Show this receipt", receipt, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to "Edit this receipt", edit_receipt_path(receipt), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
-    <hr class="mt-6">
-  <% end %>
+<div id="<%= dom_id @receipt %>">
+
+    <h1>Payment Details</h1>
+
+    <p>
+        <strong>Name:</strong>
+        <%= @receipt.name %>
+    </p>
+
+    <p>
+        <strong>Email:</strong>
+        <%= @receipt.email %>
+    </p>
+
+    <p>
+        <strong>Phone Number:</strong>
+        <%= @receipt.phone %>
+    </p>
+
+    <p>
+        <strong>Total:</strong>
+        <%= @receipt.total %>
+    </p>
+
+    <div>
+        <%= link_to "Back to Receipt", receipts_path %>
+    </div>
+
 </div>

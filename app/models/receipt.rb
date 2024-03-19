@@ -1,5 +1,6 @@
 class Receipt < ApplicationRecord
-    
+    belongs_to :user
+
     def generate_checksum
         Rails.logger.info("Generating checksum for receipt #{id}")
         string = "#{email}|#{name}|#{phone}||#{id}|#{name}|http://localhost:3000/receipts/#{id}/paymentredirect|#{total}|7732d8b9-369f-41d1-be65-e5b1a94f6a4b"

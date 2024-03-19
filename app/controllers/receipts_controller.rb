@@ -3,7 +3,10 @@ class ReceiptsController < ApplicationController
   skip_before_action :verify_authenticity_token, only: [:paymentredirect]
 
   def index
-    if current_user.role == "teacher" || current_user.role == "admin"
+    if current_user.role == "admin"
+      @receipts = Receipt.all
+    elsif
+      current_user.role == "teacher"
       @receipts = Receipt.all
     else
       @receipts = Receipt.where(user_id: current_user.id)
@@ -43,7 +46,10 @@ class ReceiptsController < ApplicationController
           
           redirect_post('https://sandbox.securepay.my/api/v1/payments', params: params_api)    
         else
-      render :index
+          respond_to do |format|
+            format.html { render :new, status: :unprocessable_entity }
+            format.json { render json: @receipt.errors, status: :unprocessable_entity }
+          end
     end
   end
 
@@ -76,7 +82,9 @@ class ReceiptsController < ApplicationController
     end
     payment_status = params[:payment_status]
     if payment_status == "true"
-      params_payment = {
+        receipt_id = params[:order_number]
+        params_payment = {
+        receipt_id: receipt_id,
         payment_id: params[:payment_id],
         order_number: params[:order_number],
         payment_method: params[:payment_method],
@@ -93,7 +101,9 @@ class ReceiptsController < ApplicationController
       @payment.save
       redirect_to receipt_path(params[:id])
     else
-      params_payment = {
+        receipt_id = params[:order_number]
+        params_payment = {
+        receipt_id: receipt_id,
         payment_id: params[:payment_id],
         order_number: params[:order_number],
         payment_method: params[:payment_method],
