@@ -1,0 +1,29 @@
+<h1 class="mb-10">Receipts</h1>
+
+<%= link_to 'Add New Receipt', new_receipt_path %>
+
+<table class="border border-black border-spacing-15 mt-10" style="width:100%">
+  <thead>
+    <tr>
+      <th class="border border-black border-spacing-15">Name</th>
+      <th class="border border-black border-spacing-15">Email</th>
+      <th class="border border-black border-spacing-15">Phone</th>
+      <th class="border border-black border-spacing-15">Total</th>
+      <th class="border border-black border-spacing-15">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @receipts.each do |receipt| %>
+      <tr>
+        <td class="border border-black border-spacing-15"><%= receipt.name %></td>
+        <td class="border border-black border-spacing-15"><%= receipt.email %></td>
+        <td class="border border-black border-spacing-15"><%= receipt.phone %></td>
+        <td class="border border-black border-spacing-15"><%= receipt.total %></td>
+        <td class="border border-black border-spacing-15 italic"><%= link_to 'Delete', receipt, method: :delete, data:{
+          turbo_method: :delete,
+          turbo_confirm: "Are you sure?"
+      } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,48 +1,36 @@
 class TeachersController < ApplicationController
-    before_action :authenticate_user!
+  before_action :authenticate_user!
+  before_action :set_teacher, only: [:show, :edit, :update, :destroy]
+  before_action :authorize_teacher, only: [:edit, :update, :destroy]
 
   def index
     @teachers = Teacher.all
   end
 
   def show
-    @teacher = Teacher.find(params[:id])
-  end
-
-  def new
-    @teacher = Teacher.new
-  end
-
-  def create
-    @teacher = Teacher.new(teacher_params)
-    if @teacher.save
-      redirect_to @teacher, notice: 'Teacher was successfully created.'
-    else
-      render :new
-    end
   end
 
   def edit
-    @teacher = Teacher.find(params[:id])
   end
 
   def update
-    @teacher = Teacher.find(params[:id])
-
     if @teacher.update(teacher_params)
-      redirect_to @teacher
+      redirect_to @teacher, notice: 'Teacher was successfully updated.'
     else
-      render :edit, status: unprocessable_entity
+      render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @teacher = Teacher.find(params[:id])
     @teacher.destroy
-    redirect_to @teacher
+    redirect_to teachers_path, notice: 'Teacher was successfully deleted.'
   end
 
   private
+
+  def set_teacher
+    @teacher = Teacher.find(params[:id])
+  end
 
   def teacher_params
     params.require(:teacher).permit(:name)
@@ -50,5 +38,9 @@ class TeachersController < ApplicationController
 
   def authenticate_user!
     redirect_to new_user_session_path, alert: "You must sign in or sign up to continue" unless user_signed_in?
+  end
+
+  def authorize_teacher
+    redirect_to teachers_path, alert: "You are not authorized to perform this action" unless @teacher.user == current_user
   end
 end

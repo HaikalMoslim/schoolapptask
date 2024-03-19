@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
-  devise_for :users
+  resources :receipts do
+    post :paymentredirect, on: :member
+  end
+  resources :payments
+  devise_for :users, :controllers => {:registrations => "users/registrations"}
   
   resources :students
   resources :teachers

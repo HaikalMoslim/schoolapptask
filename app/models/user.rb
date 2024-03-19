@@ -3,4 +3,10 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+
+         enum role: [:admin, :student, :teacher]
+
+  has_many :receipts
+  has_many :payments, through: :receipts
+
 end
