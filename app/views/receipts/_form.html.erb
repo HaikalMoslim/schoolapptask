@@ -32,7 +32,10 @@
       <div><%= message %></div>
     <% end %>
   </div>
-
+  <div class="m-10">
+  <%= form.label :Teacher %><br>
+  <%= form.collection_select :teacher_id, Teacher.all, :user_id, :name, prompt: "Select Teacher", include_blank: true, disabled: current_user.teacher? %> 
+  </div>
   <div class="m-10">
     <%= form.submit "Submit", class: "btn btn-primary" %>
   </div>

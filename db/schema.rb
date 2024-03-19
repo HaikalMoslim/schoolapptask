@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_19_012150) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_19_052057) do
   create_table "enrollments", force: :cascade do |t|
     t.integer "student_id", null: false
     t.integer "teacher_id", null: false
@@ -46,6 +46,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_19_012150) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+    t.integer "teacher_id"
+    t.index ["teacher_id"], name: "index_receipts_on_teacher_id"
     t.index ["user_id"], name: "index_receipts_on_user_id"
   end
 
@@ -82,6 +84,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_19_012150) do
   add_foreign_key "enrollments", "students"
   add_foreign_key "enrollments", "teachers"
   add_foreign_key "payments", "receipts"
+  add_foreign_key "receipts", "teachers"
   add_foreign_key "receipts", "users"
   add_foreign_key "students", "users"
   add_foreign_key "teachers", "users"
