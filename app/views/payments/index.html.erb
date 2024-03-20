@@ -21,7 +21,7 @@
         <td class="border border-black border-spacing-15"><%= payment.buyer_phone %></td>
         <td class="border border-black border-spacing-15"><%= payment.transaction_amount %></td>
         <td class="border border-black border-spacing-15"><%= payment.payment_status %></td>
-        <%if current_user.admin? %>
+        <%if current_user.teacher? %>
         <td class="border border-black border-spacing-15 italic"><%= link_to 'Delete', payment, method: :delete, data:{
           turbo_method: :delete,
           turbo_confirm: "Are you sure?"

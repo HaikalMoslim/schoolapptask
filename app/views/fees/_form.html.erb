@@ -1,9 +1,8 @@
 <%= simple_form_for @fee, local: true, data: { turbo: false } do |form| %>
   
-  <div class="m-10">
-    <%= form.label :user_id, label:"User ID", class:"form-label" %> <br>
-    <%= form.input_field :user_id, value: current_user.id, class:"form-control", readonly:true %>
-  </div>
+ 
+    <%= form.hidden_field :user_id, value: current_user.id, class:"form-control", readonly:true %>
+
   <div class="m-10">
     <%= form.label :name %><br>
     <%= form.text_field :name%>
