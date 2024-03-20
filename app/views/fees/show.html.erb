@@ -1,0 +1,36 @@
+<div id="<%= dom_id @fee %>">
+
+    <h1>Fee Details</h1>
+
+    <p>
+        <strong>Name:</strong>
+        <%= @fee.name %>
+    </p>
+
+    <p>
+        <strong>Email:</strong>
+        <%= @fee.email %>
+    </p>
+
+    <p>
+        <strong>Phone Number:</strong>
+        <%= @fee.phone %>
+    </p>
+
+    <p>
+        <strong>Total:</strong>
+        <%= @fee.total %>
+    </p>
+
+</div>
+
+<div class="mx-auto md:w-2/3 w-full flex">
+  <div class="mx-auto">
+  <%if current_user.admin? || current_user.teacher?%>
+    <div class="inline-block ml-2">
+      <%= button_to "Destroy this fee", fee_path(@fee), method: :delete, class: "mt-2 rounded-lg py-3 px-5 bg-gray-100 font-medium" %>
+    </div>
+    <%end%>
+    <%= link_to "Back to fees", fees_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+  </div>
+</div>

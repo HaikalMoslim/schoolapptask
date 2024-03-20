@@ -8,6 +8,7 @@
     <%end%>
     <li><%= link_to 'Receipt', receipts_path %></li>
     <li><%= link_to "Payment", payments_path %></li>
+    <li><%= link_to "Fee", fees_path %></li>
     <div>
       <% if user_signed_in? %>
         <% if current_user.admin? || current_user.student? || current_user.teacher? %>

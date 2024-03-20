@@ -2,8 +2,6 @@ class Receipt < ApplicationRecord
     belongs_to :user
     belongs_to :student
     belongs_to :teacher
-
-    validates :student_id, presence: true
       
     def generate_checksum
         Rails.logger.info("Generating checksum for receipt #{id}")

@@ -1,0 +1,34 @@
+<h1 class="mb-10">Fees</h1>
+
+<%if current_user.teacher? %>
+<%= link_to 'Add New Fee', new_fee_path %>
+<% end %>
+
+<table class="border border-black border-spacing-15 mt-10" style="width:100%">
+  <thead>
+    <tr>
+      <th class="border border-black border-spacing-15">Name</th>
+      <th class="border border-black border-spacing-15">Email</th>
+      <th class="border border-black border-spacing-15">Phone</th>
+      <th class="border border-black border-spacing-15">Total</th>
+      <th class="border border-black border-spacing-15">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @fees.each do |fee| %>
+      <tr>
+        <td class="border border-black border-spacing-15"><%= fee.name %></td>
+        <td class="border border-black border-spacing-15"><%= fee.email %></td>
+        <td class="border border-black border-spacing-15"><%= fee.phone %></td>
+        <td class="border border-black border-spacing-15"><%= fee.total %></td>
+        <%if current_user.admin? %>
+        <td class="border border-black border-spacing-15 italic"><%= link_to 'Delete', fee, method: :delete, data:{
+          turbo_method: :delete,
+          turbo_confirm: "Are you sure?"
+      } %></td>
+      <%end%>
+        <td class="border border-black border-spacing-15"><%= link_to 'Show', fee %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

@@ -1,47 +1,43 @@
-class ReceiptsController < ApplicationController
-  before_action :set_receipt, only: %i[ show edit update destroy ]
+class FeesController < ApplicationController
+  before_action :set_fee, only: %i[ show edit update destroy ]
   skip_before_action :verify_authenticity_token, only: [:paymentredirect]
-
+  # GET /fees or /fees.json
   def index
-    if current_user.role == "admin"
-      @receipts = Receipt.all
-    elsif
-      current_user.role == "teacher"
-      @receipts = Receipt.all
-    else
-      @receipts = Receipt.where(user_id: current_user.id)
-    end
-    
+    @fees = Fee.all
   end
 
+  # GET /fees/1 or /fees/1.json
   def show
   end
 
+  # GET /fees/new
   def new
-    @receipt = Receipt.new
+    @fee = Fee.new
   end
 
+  # GET /fees/1/edit
   def edit
   end
 
+  # POST /fees or /fees.json
   def create
-    @receipt = Receipt.new(receipt_params)
-    
-    if @receipt.save
+    @fee = Fee.new(fee_params)
+
+    if @fee.save
       user_id = current_user.id
       session[:user_id] = user_id
       params_api = {
-            buyer_email: @receipt.email, 
-            order_number: @receipt.id,
-            buyer_name: @receipt.name,
-            buyer_phone: @receipt.phone,
-            transaction_amount: @receipt.total,
-            product_description: @receipt.name,
+            buyer_email: @fee.email, 
+            order_number: @fee.id,
+            buyer_name: @fee.name,
+            buyer_phone: @fee.phone,
+            transaction_amount: @fee.total,
+            product_description: @fee.name,
             callback_url: "",
-            redirect_url: "http://localhost:3000/receipts/#{@receipt.id}/paymentredirect",
+            redirect_url: "http://localhost:3000/fees/#{@fee.id}/paymentredirect",
             uid: '7732d8b9-369f-41d1-be65-e5b1a94f6a4b',
             token: 'Rr_xrPdppxrMfwxDDKW7',
-            checksum: @receipt.generate_checksum,
+            checksum: @fee.generate_checksum,
             redirect_post: "true"
           }
           
@@ -49,28 +45,30 @@ class ReceiptsController < ApplicationController
         else
           respond_to do |format|
             format.html { render :new, status: :unprocessable_entity }
-            format.json { render json: @receipt.errors, status: :unprocessable_entity }
+            format.json { render json: @fee.errors, status: :unprocessable_entity }
           end
     end
   end
 
+  # PATCH/PUT /fees/1 or /fees/1.json
   def update
     respond_to do |format|
-      if @receipt.update(receipt_params)
-        format.html { redirect_to receipt_url(@receipt), notice: "Receipt was successfully updated." }
-        format.json { render :show, status: :ok, location: @receipt }
+      if @fee.update(fee_params)
+        format.html { redirect_to fee_url(@fee), notice: "Fee was successfully updated." }
+        format.json { render :show, status: :ok, location: @fee }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @receipt.errors, status: :unprocessable_entity }
+        format.json { render json: @fee.errors, status: :unprocessable_entity }
       end
     end
   end
 
+  # DELETE /fees/1 or /fees/1.json
   def destroy
-    @receipt.destroy!
+    @fee.destroy!
 
     respond_to do |format|
-      format.html { redirect_to receipts_url, notice: "Receipt was successfully destroyed." }
+      format.html { redirect_to fees_url, notice: "Fee was successfully destroyed." }
       format.json { head :no_content }
     end
   end
@@ -83,9 +81,9 @@ class ReceiptsController < ApplicationController
     end
     payment_status = params[:payment_status]
     if payment_status == "true"
-        receipt_id = params[:order_number]
+        fee_id = params[:order_number]
         params_payment = {
-        receipt_id: receipt_id,
+        fee_id: fee_id,
         payment_id: params[:payment_id],
         order_number: params[:order_number],
         payment_method: params[:payment_method],
@@ -100,11 +98,11 @@ class ReceiptsController < ApplicationController
       }
       @payment = Payment.new(params_payment)
       @payment.save
-      redirect_to receipt_path(params[:id])
+      redirect_to fees_path(params[:id])
     else
-        receipt_id = params[:order_number]
+        fee_id = params[:order_number]
         params_payment = {
-        receipt_id: receipt_id,
+        fee_id: fee_id,
         payment_id: params[:payment_id],
         order_number: params[:order_number],
         payment_method: params[:payment_method],
@@ -124,15 +122,17 @@ class ReceiptsController < ApplicationController
   end
 
   private
-    def set_receipt
-      @receipt = Receipt.find(params[:id])
+    # Use callbacks to share common setup or constraints between actions.
+    def set_fee
+      @fee = Fee.find(params[:id])
     end
 
-    def receipt_params
-      params.require(:receipt).permit(:name, :email, :phone, :total, :user_id, :student_id, :teacher_id)
+    # Only allow a list of trusted parameters through.
+    def fee_params
+      params.fetch(:fee).permit(:name, :email, :phone, :total, :user_id)
     end
 
     def params_payment
-      params.require(:payment).permit(:order_number, :payment_status, :buyer_name, :buyer_email, :buyer_phone, :transaction_amount, :payment_id, :status_url, :retry_url, :receipt_url)
+      params.require(:payment).permit(:order_number, :payment_status, :buyer_name, :buyer_email, :buyer_phone, :transaction_amount, :payment_id, :status_url, :retry_url, :fee_url)
     end
 end

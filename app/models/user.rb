@@ -7,6 +7,5 @@ class User < ApplicationRecord
          enum role: [:admin, :student, :teacher]
 
   has_many :receipts
-  has_many :payments, through: :receipts
-
+  has_many :fees
 end
