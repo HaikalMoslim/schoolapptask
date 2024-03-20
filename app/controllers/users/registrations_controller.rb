@@ -12,10 +12,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
         redirect_to students_path, notice: 'Admin was successfully created.'
       when 'student'
         Student.create(user: @user, name: @user.name)
-        redirect_to students_path, notice: 'Student was successfully created.'
+        redirect_to user_session_path, notice: 'Student was successfully created.'
       when 'teacher'
         Teacher.create(user: @user, name: @user.name)
-        redirect_to teachers_path, notice: 'Teacher was successfully created.'
+        redirect_to user_session_path, notice: 'Teacher was successfully created.'
       else
         redirect_to root_path, notice: 'User was successfully created.'
       end

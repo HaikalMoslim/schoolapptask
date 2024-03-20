@@ -8,23 +8,7 @@ class FeesController < ApplicationController
 
   # GET /fees/1 or /fees/1.json
   def show
-  end
-
-  # GET /fees/new
-  def new
-    @fee = Fee.new
-  end
-
-  # GET /fees/1/edit
-  def edit
-  end
-
-  # POST /fees or /fees.json
-  def create
-    @fee = Fee.new(fee_params)
-
-    if @fee.save
-      user_id = current_user.id
+    user_id = current_user.id
       session[:user_id] = user_id
       params_api = {
             buyer_email: @fee.email, 
@@ -41,7 +25,24 @@ class FeesController < ApplicationController
             redirect_post: "true"
           }
           
-          redirect_post('https://sandbox.securepay.my/api/v1/payments', params: params_api)    
+          redirect_post('https://sandbox.securepay.my/api/v1/payments', params: params_api)   
+  end
+
+  # GET /fees/new
+  def new
+    @fee = Fee.new
+  end
+
+  # GET /fees/1/edit
+  def edit
+  end
+
+  # POST /fees or /fees.json
+  def create
+    @fee = Fee.new(fee_params)
+
+    if @fee.save
+      redirect_to fees_path, notice: 'Fee was successfully created.'
         else
           respond_to do |format|
             format.html { render :new, status: :unprocessable_entity }
@@ -117,7 +118,7 @@ class FeesController < ApplicationController
       }
       @payment = Payment.new(params_payment)
       @payment.save
-      redirect_to payment_path(params[:id])
+      redirect_to payments_path(params[:id])
     end
   end
 

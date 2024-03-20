@@ -6,7 +6,7 @@
   </div>
   <div class="m-10">
     <%= form.label :name %><br>
-    <%= form.text_field :name, value: current_user.name, readonly: true %>
+    <%= form.text_field :name%>
     <% @fee.errors.full_messages_for(:name).each do |message| %>
       <div><%= message %></div>
     <% end %>
@@ -20,7 +20,7 @@
   </div>
   <div class="m-10">
     <%= form.label :email %><br>
-    <%= form.text_field :email, value: current_user.email, readonly: true %>
+    <%= form.text_field :email%>
     <% @fee.errors.full_messages_for(:email).each do |message| %>
       <div><%= message %></div>
     <% end %>

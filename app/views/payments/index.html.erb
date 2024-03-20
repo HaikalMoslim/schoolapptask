@@ -1,9 +1,5 @@
 <h1 class="mb-10">Payments</h1>
 
-<%if current_user.student? %>
-<%= link_to 'Add New Payment', new_payment_path %>
-<% end %>
-
 <table class="border border-black border-spacing-15 mt-10" style="width:100%">
   <thead>
     <tr>
@@ -12,6 +8,7 @@
       <th class="border border-black border-spacing-15">Email</th>
       <th class="border border-black border-spacing-15">Phone</th>
       <th class="border border-black border-spacing-15">Total</th>
+      <th class="border border-black border-spacing-15">Status</th>
       <th class="border border-black border-spacing-15">Action</th>
     </tr>
   </thead>
@@ -23,6 +20,7 @@
         <td class="border border-black border-spacing-15"><%= payment.buyer_email %></td>
         <td class="border border-black border-spacing-15"><%= payment.buyer_phone %></td>
         <td class="border border-black border-spacing-15"><%= payment.transaction_amount %></td>
+        <td class="border border-black border-spacing-15"><%= payment.payment_status %></td>
         <%if current_user.admin? %>
         <td class="border border-black border-spacing-15 italic"><%= link_to 'Delete', payment, method: :delete, data:{
           turbo_method: :delete,

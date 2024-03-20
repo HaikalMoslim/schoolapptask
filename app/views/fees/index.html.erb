@@ -21,13 +21,15 @@
         <td class="border border-black border-spacing-15"><%= fee.email %></td>
         <td class="border border-black border-spacing-15"><%= fee.phone %></td>
         <td class="border border-black border-spacing-15"><%= fee.total %></td>
-        <%if current_user.admin? %>
+        <%if current_user.teacher? %>
         <td class="border border-black border-spacing-15 italic"><%= link_to 'Delete', fee, method: :delete, data:{
           turbo_method: :delete,
           turbo_confirm: "Are you sure?"
       } %></td>
       <%end%>
-        <td class="border border-black border-spacing-15"><%= link_to 'Show', fee %></td>
+      <%if current_user.student? %>
+        <td class="border border-black border-spacing-15"><%= link_to 'Pay', fee %></td>
+        <%end%>
       </tr>
     <% end %>
   </tbody>

@@ -1,8 +1,11 @@
 <%= simple_form_for @receipt, local: true, data: { turbo: false } do |form| %>
   
   <div class="m-10">
-    <%= form.label :user_id, label:"User ID", class:"form-label" %> <br>
-    <%= form.input_field :user_id, value: current_user.id, class:"form-control", readonly:true %>
+    <%= form.label :student_id %> <br>
+    <%= form.collection_select :student_id, Student.all, :id, :name, prompt: "Select Student" %>
+    <% @receipt.errors.full_messages_for(:student_id).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
   </div>
   <div class="m-10">
     <%= form.label :name %><br>
@@ -32,8 +35,7 @@
       <div><%= message %></div>
     <% end %>
   </div>
-
   <div class="m-10">
-    <%= form.submit %>
+    <%= form.submit "Submit", class: "btn btn-primary" %>
   </div>
 <% end %>
