@@ -1,5 +1,4 @@
 class StudentsController < ApplicationController
-  before_action :authenticate_user!
   before_action :set_student, only: [:show, :edit, :update, :destroy]
   before_action :authorize_student, only: [:edit, :update, :destroy]
 
@@ -34,10 +33,6 @@ class StudentsController < ApplicationController
 
   def student_params
     params.require(:student).permit(:name)
-  end
-
-  def authenticate_user!
-    redirect_to new_user_session_path, alert: "You must sign in or sign up to continue" unless user_signed_in?
   end
 
   def authorize_student

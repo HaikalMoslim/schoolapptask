@@ -1,6 +1,6 @@
 <h1 class="mb-10">Receipts</h1>
 
-<%if current_user.student? %>
+<%if current_user.teacher? %>
 <%= link_to 'Add New Receipt', new_receipt_path %>
 <% end %>
 

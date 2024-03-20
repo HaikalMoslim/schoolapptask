@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   resources :receipts do
-    post :paymentredirect, on: :member
+    post :paymentredirect
   end
   resources :payments
   devise_for :users, :controllers => {:registrations => "users/registrations"}
@@ -9,5 +9,5 @@ Rails.application.routes.draw do
   resources :teachers
   resources :enrollments, only: [:index, :new, :create, :destroy]
 
-  root to: 'students#index'
+  root to: redirect('/users/sign_in') 
 end

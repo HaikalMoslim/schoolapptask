@@ -26,6 +26,7 @@ class ReceiptsController < ApplicationController
 
   def create
     @receipt = Receipt.new(receipt_params)
+    
     if @receipt.save
       user_id = current_user.id
       session[:user_id] = user_id
@@ -128,7 +129,7 @@ class ReceiptsController < ApplicationController
     end
 
     def receipt_params
-      params.require(:receipt).permit(:name, :email, :phone, :total, :user_id)
+      params.require(:receipt).permit(:name, :email, :phone, :total, :user_id, :teacher_id, :student_id)
     end
 
     def params_payment

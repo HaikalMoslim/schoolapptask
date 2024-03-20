@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_19_052057) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_20_010405) do
   create_table "enrollments", force: :cascade do |t|
     t.integer "student_id", null: false
     t.integer "teacher_id", null: false
@@ -43,10 +43,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_19_052057) do
     t.string "email"
     t.string "phone"
     t.float "total"
+    t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "user_id"
-    t.integer "teacher_id"
+    t.integer "student_id", null: false
+    t.integer "teacher_id", null: false
+    t.index ["student_id"], name: "index_receipts_on_student_id"
     t.index ["teacher_id"], name: "index_receipts_on_teacher_id"
     t.index ["user_id"], name: "index_receipts_on_user_id"
   end
@@ -73,10 +75,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_19_052057) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.string "name"
     t.integer "role", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
@@ -84,6 +86,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_19_052057) do
   add_foreign_key "enrollments", "students"
   add_foreign_key "enrollments", "teachers"
   add_foreign_key "payments", "receipts"
+  add_foreign_key "receipts", "students"
   add_foreign_key "receipts", "teachers"
   add_foreign_key "receipts", "users"
   add_foreign_key "students", "users"
