@@ -7,26 +7,29 @@ class FeesController < ApplicationController
   end
 
   # GET /fees/1 or /fees/1.json
-  def show
-    user_id = current_user.id
-      session[:user_id] = user_id
-      params_api = {
-            buyer_email: @fee.email, 
-            order_number: @fee.id,
-            buyer_name: @fee.name,
-            buyer_phone: @fee.phone,
-            transaction_amount: @fee.total,
-            product_description: @fee.name,
-            callback_url: "",
-            redirect_url: "http://localhost:3000/fees/#{@fee.id}/paymentredirect",
-            uid: '7732d8b9-369f-41d1-be65-e5b1a94f6a4b',
-            token: 'Rr_xrPdppxrMfwxDDKW7',
-            checksum: @fee.generate_checksum,
-            redirect_post: "true"
-          }
+  # GET /fees/1 or /fees/1.json
+def show
+  user_id = current_user.id
+  session[:user_id] = user_id
+  @fee = Fee.find(params[:id])
+  params_api = {
+    buyer_email: @fee.email, 
+    order_number: @fee.id,
+    buyer_name: @fee.name,
+    buyer_phone: @fee.phone,
+    transaction_amount: @fee.total,
+    product_description: @fee.name,
+    callback_url: "",
+    redirect_url: "http://localhost:3000/fees/#{@fee.id}/paymentredirect",
+    uid: '7732d8b9-369f-41d1-be65-e5b1a94f6a4b',
+    token: 'Rr_xrPdppxrMfwxDDKW7',
+    checksum: @fee.generate_checksum,
+    redirect_post: "true"
+  }
           
-          redirect_post('https://sandbox.securepay.my/api/v1/payments', params: params_api)   
-  end
+  redirect_post('https://sandbox.securepay.my/api/v1/payments', params: params_api)   
+end
+
 
   # GET /fees/new
   def new
@@ -77,13 +80,16 @@ class FeesController < ApplicationController
   def paymentredirect
     user_id = session[:user_id]
     if user_id.present?
-      user = User.find_by(id: params[:user_id])
+      user = User.find_by(id: user_id)
       sign_in(user) if user.present?
     end
+  
     payment_status = params[:payment_status]
-    if payment_status == "true"
-        fee_id = params[:order_number]
-        params_payment = {
+    fee_id = params[:order_number]
+    @fee = Fee.find_by(id: fee_id)
+  
+    if payment_status == "true" && @fee.present?
+      params_payment = {
         fee_id: fee_id,
         payment_id: params[:payment_id],
         order_number: params[:order_number],
@@ -97,12 +103,14 @@ class FeesController < ApplicationController
         buyer_phone: params[:buyer_phone],
         transaction_amount: params[:transaction_amount]
       }
+  
       @payment = Payment.new(params_payment)
       @payment.save
-      redirect_to fees_path(params[:id])
+  
+      @fee.update(payment_succeeded: true)
+      redirect_to students_path(params[:id]), notice: 'Payment succeeded!'
     else
-        fee_id = params[:order_number]
-        params_payment = {
+      params_payment = {
         fee_id: fee_id,
         payment_id: params[:payment_id],
         order_number: params[:order_number],
@@ -116,8 +124,10 @@ class FeesController < ApplicationController
         buyer_phone: params[:buyer_phone],
         transaction_amount: params[:transaction_amount]
       }
+  
       @payment = Payment.new(params_payment)
       @payment.save
+  
       redirect_to payments_path(params[:id])
     end
   end
@@ -134,6 +144,6 @@ class FeesController < ApplicationController
     end
 
     def params_payment
-      params.require(:payment).permit(:order_number, :payment_status, :buyer_name, :buyer_email, :buyer_phone, :transaction_amount, :payment_id, :status_url, :retry_url, :fee_url)
+      params.require(:payment).permit(:order_number, :payment_status, :buyer_name, :buyer_email, :buyer_phone, :transaction_amount, :payment_id, :status_url, :retry_url, :receipt_url)
     end
 end

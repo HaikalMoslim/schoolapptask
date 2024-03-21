@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
+  resources :invoices do
+    post :paymentredirect
+  end
   resources :fees do
-  post :paymentredirect
-end
-  resources :receipts do
     post :paymentredirect
   end
   resources :payments

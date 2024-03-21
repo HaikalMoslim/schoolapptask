@@ -78,3 +78,7 @@ gem "simple_form", "~> 5.3"
 gem "simple_form-tailwind", "~> 0.1.1"
 
 gem "repost", "~> 0.4.2"
+
+gem 'rails-erd', group: :development
+
+gem 'rubocop', require: false

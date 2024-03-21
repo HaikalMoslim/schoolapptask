@@ -27,9 +27,13 @@
           turbo_confirm: "Are you sure?"
       } %></td>
       <%end%>
-      <%if current_user.student? %>
-        <td class="border border-black border-spacing-15"><%= link_to 'Pay', fee %></td>
-        <%end%>
+      <%if current_user.student?%>
+      <% if fee.payment_succeeded %>
+        <td class="border border-black border-spacing-15">Payment succeeded!</td>
+      <% else %>
+        <td class="border border-black border-spacing-15"><%= link_to "Payment pending", fee %></td>
+      <% end %>
+      <%end%>
       </tr>
     <% end %>
   </tbody>

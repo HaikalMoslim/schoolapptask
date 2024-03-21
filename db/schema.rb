@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_20_042140) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_21_043833) do
   create_table "enrollments", force: :cascade do |t|
     t.integer "student_id", null: false
     t.integer "teacher_id", null: false
@@ -28,6 +28,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_20_042140) do
     t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "payment_succeeded", default: false
     t.index ["user_id"], name: "index_fees_on_user_id"
   end
 
@@ -43,27 +44,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_20_042140) do
     t.string "buyer_phone"
     t.float "transaction_amount"
     t.string "retry_url"
-    t.integer "receipt_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "fee_id", null: false
     t.index ["fee_id"], name: "index_payments_on_fee_id"
-    t.index ["receipt_id"], name: "index_payments_on_receipt_id"
-  end
-
-  create_table "receipts", force: :cascade do |t|
-    t.string "name"
-    t.string "email"
-    t.string "phone"
-    t.float "total"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "student_id", null: false
-    t.integer "teacher_id", null: false
-    t.integer "user_id", null: false
-    t.index ["student_id"], name: "index_receipts_on_student_id"
-    t.index ["teacher_id"], name: "index_receipts_on_teacher_id"
-    t.index ["user_id"], name: "index_receipts_on_user_id"
   end
 
   create_table "students", force: :cascade do |t|
@@ -100,10 +84,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_20_042140) do
   add_foreign_key "enrollments", "teachers"
   add_foreign_key "fees", "users"
   add_foreign_key "payments", "fees"
-  add_foreign_key "payments", "receipts"
-  add_foreign_key "receipts", "students"
-  add_foreign_key "receipts", "teachers"
-  add_foreign_key "receipts", "users"
   add_foreign_key "students", "users"
   add_foreign_key "teachers", "users"
 end
