@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'maps/home'
+  resources :schools
   resources :invoices do
     post :paymentredirect
   end
@@ -6,7 +8,7 @@ Rails.application.routes.draw do
     post :paymentredirect
   end
   resources :payments
-  devise_for :users, :controllers => {:registrations => "users/registrations"}
+  devise_for :users, :controllers => {:registrations => "users/registrations",:sessions => "users/sessions"}
   
   resources :students
   resources :teachers

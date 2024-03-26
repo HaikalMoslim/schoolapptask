@@ -82,3 +82,6 @@ gem "repost", "~> 0.4.2"
 gem 'rails-erd', group: :development
 
 gem 'rubocop', require: false
+gem "sidekiq", "~> 7.2"
+gem 'mapkick-rb'
+gem "geocoder", "~> 1.8"

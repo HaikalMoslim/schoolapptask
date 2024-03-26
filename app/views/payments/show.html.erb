@@ -36,6 +36,10 @@
         <%= link_to @payment.receipt_url, @payment.receipt_url %>
     </p>
     <p>
+        <strong>Status URL:</strong>
+        <%= link_to @payment.status_url, @payment.status_url %>
+    </p>
+    <p>
         <strong>Total:</strong>
         <%= @payment.transaction_amount %>
     </p>

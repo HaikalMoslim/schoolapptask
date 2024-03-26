@@ -7,4 +7,9 @@ class User < ApplicationRecord
          enum role: [:admin, :student, :teacher]
 
   has_many :fees
+
+  def send_devise_notification(notification, *args)
+    DeviseMailerWorker.perform_async(notification, self.class.name, id, *args)
+  end
+
 end

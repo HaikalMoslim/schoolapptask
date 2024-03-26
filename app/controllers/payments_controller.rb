@@ -1,6 +1,6 @@
 class PaymentsController < ApplicationController
   # before_action :set_payment, only: %i[ show edit update destroy ]
-
+  before_action :authenticate_user!
   def index
     @payments = Payment.all
   end
@@ -50,7 +50,7 @@ class PaymentsController < ApplicationController
     else
       redirect_to payments_path, notice: "Payment with ID #{params[:id]} not found"
     end
-end
+  end
 
   private
     def set_payment

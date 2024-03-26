@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_21_043833) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_25_033311) do
   create_table "enrollments", force: :cascade do |t|
     t.integer "student_id", null: false
     t.integer "teacher_id", null: false
@@ -32,6 +32,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_21_043833) do
     t.index ["user_id"], name: "index_fees_on_user_id"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "payments", force: :cascade do |t|
     t.integer "payment_id"
     t.integer "order_number"
@@ -48,6 +53,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_21_043833) do
     t.datetime "updated_at", null: false
     t.integer "fee_id", null: false
     t.index ["fee_id"], name: "index_payments_on_fee_id"
+  end
+
+  create_table "schools", force: :cascade do |t|
+    t.string "name"
+    t.string "address"
+    t.string "city"
+    t.string "state"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "link"
   end
 
   create_table "students", force: :cascade do |t|

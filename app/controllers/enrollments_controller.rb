@@ -11,6 +11,7 @@ class EnrollmentsController < ApplicationController
   def create
     @enrollment = Enrollment.new(enrollment_params)
     if @enrollment.save
+      # NotificationWorker.perform_async(current_user.id, @enrollment.student_id)
       redirect_to enrollments_path, notice: 'Enrollment was successfully created.'
     else
       render :new
@@ -28,7 +29,7 @@ class EnrollmentsController < ApplicationController
     params.require(:enrollment).permit(:student_id, :teacher_id)
   end
 
-  def authenticate_user!
-    redirect_to new_user_session_path, alert: "You must sign in or sign up to continue" unless user_signed_in?
-  end
+  # def authenticate_user!
+  #   redirect_to new_user_session_path, alert: "You must sign in or sign up to continue" unless user_signed_in?
+  # end
 end

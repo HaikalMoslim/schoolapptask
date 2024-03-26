@@ -1,6 +1,7 @@
 class FeesController < ApplicationController
   before_action :set_fee, only: %i[ show edit update destroy ]
   skip_before_action :verify_authenticity_token, only: [:paymentredirect]
+  # skip_before_action :authenticate_user!, only: [:paymentredirect]
   # GET /fees or /fees.json
   def index
     @fees = Fee.all
@@ -88,7 +89,7 @@ end
     fee_id = params[:order_number]
     @fee = Fee.find_by(id: fee_id)
   
-    if payment_status == "true" && @fee.present?
+    if payment_status == "true"
       params_payment = {
         fee_id: fee_id,
         payment_id: params[:payment_id],
@@ -106,9 +107,8 @@ end
   
       @payment = Payment.new(params_payment)
       @payment.save
-  
       @fee.update(payment_succeeded: true)
-      redirect_to students_path(params[:id]), notice: 'Payment succeeded!'
+      redirect_to fees_path
     else
       params_payment = {
         fee_id: fee_id,
@@ -128,7 +128,7 @@ end
       @payment = Payment.new(params_payment)
       @payment.save
   
-      redirect_to payments_path(params[:id])
+      redirect_to payments_path
     end
   end
 
