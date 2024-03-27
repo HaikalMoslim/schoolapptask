@@ -12,7 +12,6 @@ class CreatePayments < ActiveRecord::Migration[7.1]
       t.string :buyer_phone
       t.float :transaction_amount
       t.string :retry_url
-      t.references :receipt, foreign_key: true
       t.timestamps
     end
   end

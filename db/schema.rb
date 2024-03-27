@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_25_033311) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_27_042026) do
   create_table "enrollments", force: :cascade do |t|
     t.integer "student_id", null: false
     t.integer "teacher_id", null: false
@@ -30,11 +30,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_25_033311) do
     t.datetime "updated_at", null: false
     t.boolean "payment_succeeded", default: false
     t.index ["user_id"], name: "index_fees_on_user_id"
-  end
-
-  create_table "notifications", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "payments", force: :cascade do |t|
@@ -67,17 +62,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_25_033311) do
 
   create_table "students", force: :cascade do |t|
     t.string "name"
-    t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
     t.index ["user_id"], name: "index_students_on_user_id"
   end
 
   create_table "teachers", force: :cascade do |t|
     t.string "name"
-    t.integer "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
     t.index ["user_id"], name: "index_teachers_on_user_id"
   end
 
