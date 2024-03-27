@@ -47,7 +47,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_27_042026) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "fee_id", null: false
+    t.integer "user_id"
     t.index ["fee_id"], name: "index_payments_on_fee_id"
+    t.index ["user_id"], name: "index_payments_on_user_id"
   end
 
   create_table "schools", force: :cascade do |t|
@@ -94,6 +96,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_27_042026) do
   add_foreign_key "enrollments", "teachers"
   add_foreign_key "fees", "users"
   add_foreign_key "payments", "fees"
+  add_foreign_key "payments", "users"
   add_foreign_key "students", "users"
   add_foreign_key "teachers", "users"
 end
