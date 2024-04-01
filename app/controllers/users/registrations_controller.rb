@@ -9,7 +9,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
     if @user.save
       case @user.role
       when 'admin'
-        redirect_to students_path, notice: 'Admin was successfully created.'
+        redirect_to user_session_path, notice: 'Admin was successfully created.'
       when 'student'
         Student.create(user: @user, name: @user.name)
         redirect_to user_session_path, notice: 'Student was successfully created.'
