@@ -17,6 +17,7 @@
   <ul class="justify-center flex m-10">
     <li><%= link_to "Login", new_user_session_path %></li>
     <li><%= link_to "Sign Up", new_user_registration_path %></li>
+    <li><%= link_to "Payment", payments_path %></li>
     <% if Rails.env.development? %>
       <li class="actions">
         <%= link_to "Letter Box", letter_opener_web_path, target: "_blank" %>
