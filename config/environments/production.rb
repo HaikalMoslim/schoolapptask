@@ -95,4 +95,8 @@ Rails.application.configure do
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
   config.active_job.queue_adapter = :sidekiq
+
+  config.logger = Logger.new("log/production.log")
+  config.logger.formatter = config.log_formatter
+  config.logger = ActiveSupport::TaggedLogging.new(config.logger)
 end
