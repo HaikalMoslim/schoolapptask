@@ -4,7 +4,6 @@
     <li><%= link_to "Students", students_path %></li>
     <li><%= link_to "Teachers", teachers_path %></li>
     <li><%= link_to "Schools", schools_path %></li>
-    <li><%= link_to "Maps", maps_home_path %></li>
     <% if current_user.role =="teacher" || current_user.role =="admin" %>
     <li><%= link_to 'Manage Enrollments', enrollments_path %></li>
     <% end %>
@@ -18,6 +17,11 @@
   <ul class="justify-center flex m-10">
     <li><%= link_to "Login", new_user_session_path %></li>
     <li><%= link_to "Sign Up", new_user_registration_path %></li>
+    <% if Rails.env.development? %>
+      <li class="actions">
+        <%= link_to "Letter Box", letter_opener_web_path, target: "_blank" %>
+      </li>
+    <% end %>
   </ul>
 </nav>
 <% end %>

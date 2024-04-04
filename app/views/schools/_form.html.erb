@@ -15,16 +15,16 @@
   <% end %>
 </div>
 <div class="m-10">
-  <%= form.label :city %><br>
-  <%= form.text_field :city%>
-  <% @school.errors.full_messages_for(:city).each do |message| %>
+  <%= form.label :latitude %><br>
+  <%= form.text_field :latitude%>
+  <% @school.errors.full_messages_for(:latitude).each do |message| %>
     <div><%= message %></div>
   <% end %>
 </div>
 <div class="m-10">
-  <%= form.label :state %><br>
-  <%= form.text_field :state, class: 'form-control' %>
-  <% @school.errors.full_messages_for(:state).each do |message| %>
+  <%= form.label :longitude %><br>
+  <%= form.text_field :longitude, class: 'form-control' %>
+  <% @school.errors.full_messages_for(:longitude).each do |message| %>
     <div><%= message %></div>
   <% end %>
 </div>

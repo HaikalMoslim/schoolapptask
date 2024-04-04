@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_27_042026) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_27_072738) do
   create_table "enrollments", force: :cascade do |t|
     t.integer "student_id", null: false
     t.integer "teacher_id", null: false
@@ -55,11 +55,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_27_042026) do
   create_table "schools", force: :cascade do |t|
     t.string "name"
     t.string "address"
-    t.string "city"
-    t.string "state"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "link"
+    t.float "latitude"
+    t.float "longitude"
   end
 
   create_table "students", force: :cascade do |t|
@@ -84,6 +84,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_27_042026) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
+    t.integer "sign_in_count", default: 0, null: false
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string "current_sign_in_ip"
+    t.string "last_sign_in_ip"
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
     t.string "name"
     t.integer "role", default: 0
     t.datetime "created_at", null: false
