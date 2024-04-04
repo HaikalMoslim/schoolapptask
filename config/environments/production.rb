@@ -101,4 +101,7 @@ Rails.application.configure do
   config.logger = ActiveSupport::TaggedLogging.new(config.logger)
 
   config.action_mailer.default_url_options = { :host => "schoolapp.fypproject.xyz" }
+
+  config.action_mailer.delivery_method = :letter_opener_web
+
 end
