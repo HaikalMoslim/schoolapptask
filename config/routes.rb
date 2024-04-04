@@ -20,5 +20,5 @@ Rails.application.routes.draw do
 
   root to: redirect('/users/sign_in')
 
-  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
+  # mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 end
