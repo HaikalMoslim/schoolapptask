@@ -99,4 +99,6 @@ Rails.application.configure do
   config.logger = Logger.new("log/production.log")
   config.logger.formatter = config.log_formatter
   config.logger = ActiveSupport::TaggedLogging.new(config.logger)
+
+  config.action_mailer.default_url_options = { :host => "schoolapp.fypproject.xyz" }
 end
