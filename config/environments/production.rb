@@ -100,5 +100,5 @@ Rails.application.configure do
   config.logger.formatter = config.log_formatter
   config.logger = ActiveSupport::TaggedLogging.new(config.logger)
 
-  config.action_mailer.default_url_options = { host: 'schoolapp.fypproject.xyz' }
+  config.action_mailer.default_url_options = { host: 'http://schoolapp.fypproject.xyz' }
 end
