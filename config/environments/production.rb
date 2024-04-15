@@ -75,7 +75,7 @@ Rails.application.configure do
 
   # Ignore bad email addresses and do not raise email delivery errors.
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
-  # config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.raise_delivery_errors = true
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
@@ -101,4 +101,14 @@ Rails.application.configure do
   config.logger = ActiveSupport::TaggedLogging.new(config.logger)
 
   config.action_mailer.default_url_options = { host: 'http://schoolapp.fypproject.xyz' }
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :domain               => 'http://schoolapp.fypproject.xyz',
+    :address              => 'smtp.gmail.com',
+    :port                 => 587,
+    :authentication       => :plain,
+    :user_name            => 'haikalmoslim11@gmail.com',
+    :password             => 'ktzflfcykzshtaag',
+    :enable_starttls_auto => true
+  }
 end
