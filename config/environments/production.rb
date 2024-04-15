@@ -100,13 +100,14 @@ Rails.application.configure do
   config.logger.formatter = config.log_formatter
   config.logger = ActiveSupport::TaggedLogging.new(config.logger)
 
-  config.action_mailer.default_url_options = { host: 'http://schoolapp.fypproject.xyz' }
+  config.action_mailer.default_url_options = { host: 'schoolapp.fypproject.xyz' }
+  config.action_mailer.perform_deliveries = true
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = {
     :domain               => 'http://schoolapp.fypproject.xyz',
     :address              => 'smtp.gmail.com',
     :port                 => 587,
-    :authentication       => :plain,
+    :authentication       => 'plain',
     :user_name            => 'haikalmoslim11@gmail.com',
     :password             => 'ktzflfcykzshtaag',
     :enable_starttls_auto => true
