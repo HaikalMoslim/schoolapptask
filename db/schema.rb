@@ -10,12 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_27_072738) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_13_062053) do
   create_table "enrollments", force: :cascade do |t|
     t.integer "student_id", null: false
     t.integer "teacher_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "class_name"
     t.index ["student_id"], name: "index_enrollments_on_student_id"
     t.index ["teacher_id"], name: "index_enrollments_on_teacher_id"
   end
@@ -60,6 +61,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_27_072738) do
     t.string "link"
     t.float "latitude"
     t.float "longitude"
+    t.string "about"
+    t.string "weblink"
   end
 
   create_table "students", force: :cascade do |t|
@@ -67,6 +70,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_27_072738) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
+    t.string "about"
+    t.integer "school_id"
+    t.index ["school_id"], name: "index_students_on_school_id"
     t.index ["user_id"], name: "index_students_on_user_id"
   end
 
@@ -75,6 +81,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_27_072738) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
+    t.string "about"
+    t.integer "school_id"
+    t.index ["school_id"], name: "index_teachers_on_school_id"
     t.index ["user_id"], name: "index_teachers_on_user_id"
   end
 
@@ -106,6 +115,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_27_072738) do
   add_foreign_key "fees", "users"
   add_foreign_key "payments", "fees"
   add_foreign_key "payments", "users"
+  add_foreign_key "students", "schools"
   add_foreign_key "students", "users"
+  add_foreign_key "teachers", "schools"
   add_foreign_key "teachers", "users"
 end

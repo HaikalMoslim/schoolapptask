@@ -1,7 +1,36 @@
-<h1 class="mb-5">Teachers</h1>
+<h1 class="font-bold text-4xl">Teachers</h1>
 
-<ul class="mb-5">
-  <% @teachers.each do |teacher| %>
-    <li><%= link_to teacher.name, teacher_path(teacher) %></li>
-  <% end %>
-</ul>
+<table class="mt-10" style="width:100%">
+  <thead>
+    <tr>
+      <th><%= sort_link_to "ID", :id, data: {turbo_action: "advance"}%></th>
+      <th><%= sort_link_to "Name", :name, data: {turbo_action: "advance"}%></th>
+      <th><%= sort_link_to "About", :about, data: {turbo_action: "advance"}%></th>
+      <th><%= sort_link_to "School", :school_id, data: {turbo_action: "advance"}%></th>
+      <th>Action</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @teachers.each do |teacher| %>
+      <tr>
+        <td><%= teacher.id %></td>
+        <td><%= teacher.name %></td>
+        <td><%= teacher.about %></td>
+        <td><%= teacher.school&.name %></td>
+        <td class="italic"><%= link_to 'Delete', teacher, method: :delete, data:{
+          turbo_method: :delete,
+          turbo_confirm: "Are you sure?"
+      } %></td>
+          <td class="italic"><%= link_to 'Show', teacher_path(teacher) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<div class="pagy-container">
+  <div class="my-16 flex justify-between">
+    <div><%== pagy_info(@pagy) %></div>
+    <div><%== pagy_nav(@pagy) %></div>
+  </div>
+</div>

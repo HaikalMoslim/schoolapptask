@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  get 'maps/home'
   resources :schools
   resources :invoices do
     post :paymentredirect
@@ -14,11 +13,14 @@ Rails.application.routes.draw do
   :passwords => 'users/passwords', 
   :confirmations => 'users/confirmations'}
 
+  get "homes", to: "homes#index"
+
   resources :students
   resources :teachers
   resources :enrollments, only: [:index, :new, :create, :destroy]
+  resources :users, only: [:index, :edit, :update, :destroy]
 
-  root to: redirect('/users/sign_in')
+  root to: redirect('users/sign_in')
 
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 end

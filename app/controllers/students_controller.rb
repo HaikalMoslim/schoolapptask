@@ -5,6 +5,16 @@ class StudentsController < ApplicationController
 
   def index
     @students = Student.all
+    @students = @students.search(params[:query]) if params[:query].present?
+    @pagy, @students = pagy @students.reorder(sort_column => sort_direction), items: params.fetch(:count,10)
+  end
+
+  def sort_column
+    %w{id name}.include?(params[:sort]) ? params[:sort] : "id"
+  end
+
+  def sort_direction
+    %w{asc desc}.include?(params[:direction]) ? params[:direction] : "asc"
   end
 
   def show
@@ -34,11 +44,11 @@ class StudentsController < ApplicationController
   end
 
   def student_params
-    params.require(:student).permit(:name)
+    params.require(:student).permit(:name, :about, :school_id)
   end
 
   def authorize_student
-    redirect_to root_path, alert: "You are not authorized to perform this action" unless @student.user == current_user
+    redirect_to root_path, alert: "You are not authorized to perform this action" unless @student.user == current_user || current_user.admin?
   end
 
   def update_user_name(student, new_name)

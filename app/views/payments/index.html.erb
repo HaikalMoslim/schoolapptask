@@ -1,34 +1,41 @@
-<h1 class="mb-10">Payments</h1>
+<h1 class="font-bold text-4xl">Payment</h1>
 
-<table class="border border-black border-spacing-15 mt-10" style="width:100%">
+<table class="mt-10" style="width:100%">
   <thead>
     <tr>
-      <th class="border border-black border-spacing-15">Order Number</th>
-      <th class="border border-black border-spacing-15">Name</th>
-      <th class="border border-black border-spacing-15">Email</th>
-      <th class="border border-black border-spacing-15">Phone</th>
-      <th class="border border-black border-spacing-15">Total</th>
-      <th class="border border-black border-spacing-15">Status</th>
-      <th class="border border-black border-spacing-15">Action</th>
+      <th><%= sort_link_to "Order Number", :order_number, data: {turbo_action: "advance"}%></th>
+      <th><%= sort_link_to "Name", :buyer_name, data: {turbo_action: "advance"}%></th>
+      <th><%= sort_link_to "Email", :buyer_email, data: {turbo_action: "advance"}%></th>
+      <th><%= sort_link_to "Phone", :buyer_phone, data: {turbo_action: "advance"}%></th>
+      <th><%= sort_link_to "Total", :transaction_amount, data: {turbo_action: "advance"}%></th>
+      <th><%= sort_link_to "Status", :payment_status, data: {turbo_action: "advance"}%></th>
+      <th>Action</th>
     </tr>
   </thead>
   <tbody>
     <% @payments.each do |payment| %>
       <tr>
-        <td class="border border-black border-spacing-15"><%= payment.order_number %></td>
-        <td class="border border-black border-spacing-15"><%= payment.buyer_name %></td>
-        <td class="border border-black border-spacing-15"><%= payment.buyer_email %></td>
-        <td class="border border-black border-spacing-15"><%= payment.buyer_phone %></td>
-        <td class="border border-black border-spacing-15"><%= payment.transaction_amount %></td>
-        <td class="border border-black border-spacing-15"><%= payment.payment_status %></td>
+        <td><%= payment.order_number %></td>
+        <td><%= payment.buyer_name %></td>
+        <td><%= payment.buyer_email %></td>
+        <td><%= payment.buyer_phone %></td>
+        <td><%= payment.transaction_amount %></td>
+        <td><%= payment.payment_status %></td>
         <%if current_user.teacher? %>
-        <td class="border border-black border-spacing-15 italic"><%= link_to 'Delete', payment, method: :delete, data:{
+        <td class="italic"><%= link_to 'Delete', payment, method: :delete, data:{
           turbo_method: :delete,
           turbo_confirm: "Are you sure?"
       } %></td>
       <%end%>
-        <td class="border border-black border-spacing-15"><%= link_to 'Show', payment %></td>
+        <td><%= link_to 'Show', payment %></td>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+<div class="pagy-container">
+  <div class="my-16 flex justify-between">
+    <div><%== pagy_info(@pagy) %></div>
+    <div><%== pagy_nav(@pagy) %></div>
+  </div>
+</div>

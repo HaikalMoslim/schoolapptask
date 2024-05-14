@@ -4,8 +4,17 @@ class SchoolsController < ApplicationController
   # GET /schools or /schools.json
   def index
     @schools = School.all
+    @schools = @schools.search(params[:query]) if params[:query].present?
+    @pagy, @schools = pagy @schools.reorder(sort_column => sort_direction), items: params.fetch(:count, 10)
   end
 
+  def sort_column
+    %w{id name address link}.include?(params[:sort]) ? params[:sort] : "id"
+  end
+
+  def sort_direction
+    %w{asc desc}.include?(params[:direction]) ? params[:direction] : "asc"
+  end
   # GET /schools/1 or /schools/1.json
   def show
   end
@@ -65,6 +74,6 @@ class SchoolsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def school_params
-      params.require(:school).permit(:name, :address, :city, :state, :link, :latitude, :longitude)
+      params.require(:school).permit(:name, :address, :city, :state, :link, :latitude, :longitude, :about, :weblink)
     end
 end

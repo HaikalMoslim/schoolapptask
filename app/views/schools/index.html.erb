@@ -1,49 +1,71 @@
 <div class="w-full">
   <div class="flex justify-between items-center">
     <h1 class="font-bold text-4xl">Schools</h1>
-    <%if current_user.teacher?%>
-    <%= link_to "New school", new_school_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
-    <%end%>
-</div>
+    <% if current_user.admin? %>
+      <%= link_to "New school", new_school_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+    <% end %>
+  </div>
 
-<br>
-<div>
-  <%= js_map schools_path(format: :json),
-  height: '500px', 
-  width: '100%', 
-  controls: true,
-  zoom: 12,
-  tooltips: {hover: false, html: true},
-  style: 'mapbox://styles/mapbox/outdoors-v12' %>
-</div>
+  <br>
 
-  <table class="border border-black border-spacing-15 mt-10" style="width:100%">
+  <div>
+    <%= js_map schools_path(format: :json),
+      height: '400px', 
+      width: '100%', 
+      controls: true,
+      zoom: 9,
+      tooltips: {hover: false, html: true},
+      style: 'mapbox://styles/mapbox/outdoors-v12' %>
+  </div>
+
+  <table class="mt-9">
   <thead>
-    <tr>
-      <th class="border border-black border-spacing-15">Name</th>
-      <th class="border border-black border-spacing-15">Address</th>
-      <th class="border border-black border-spacing-15">Link Catalog</th>
-      <th class="border border-black border-spacing-15">More</th>
-      <%if current_user.teacher?%>
-      <th class="border border-black border-spacing-15">Action</th>
-      <%end%>
+    <tr class="bg-gray-200">
+      <th><%= sort_link_to "ID", :id, data: {turbo_action: "advance"}%></th>
+      <th><%= sort_link_to "Name", :name, data: {turbo_action: "advance"}%></th>
+      <th><%= sort_link_to "Address", :address, data: {turbo_action: "advance"}%></th>
+      <th><%= sort_link_to "Link Catalog", :link, data: {turbo_action: "advance"}%></th>
+      <th><%= sort_link_to "Link Website", :weblink, data: {turbo_action: "advance"}%></th>
+      <th>More</th>
+      <% if current_user.teacher? || current_user.admin? %>
+        <th>Action</th>
+      <% end %>
     </tr>
   </thead>
   <tbody>
     <% @schools.each do |school| %>
       <tr>
-        <td class="border border-black border-spacing-15"><%= school.name %></td>
-        <td class="border border-black border-spacing-15"><%= school.address %></td>
-        <td class="border border-black border-spacing-15"><%= link_to school.link, school.link %></td>
-        <td class="border border-black border-spacing-15"><%= link_to 'Show', school %></td>
-        <%if current_user.teacher?%>
-        <td class="border border-black border-spacing-15 italic"><%= link_to 'Delete', school, method: :delete, data:{
-          turbo_method: :delete,
-          turbo_confirm: "Are you sure?"
-      } %></td>
-      <%end%>
+        <td><%= school.id %></td>
+        <td><%= school.name %></td>
+        <td><%= school.address %></td>
+        <td><% if school.link.present? %>
+              <%= link_to school.link, school.link %>
+            <% else %>
+              No link provided
+            <% end %></td>
+        <td><% if school.weblink.present? %>
+              <%= link_to school.weblink, school.weblink %>
+            <% else %>
+              No website provided
+            <% end %></td>
+        <td class="italic"><%= link_to 'Show', school %></td>
+        <% if current_user.teacher? || current_user.admin? %>
+          <td class="italic"><%= link_to 'Delete', school, method: :delete, data:{
+            turbo_method: :delete,
+            turbo_confirm: "Are you sure?"
+          } %></td>
+        <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+<div class="pagy-container">
+  <div class="my-16 flex justify-between">
+    <div><%== pagy_info(@pagy) %></div>
+    <div><%== pagy_nav(@pagy) %></div>
+  </div>
 </div>
+
+  <div class="my-16">
+  </div>

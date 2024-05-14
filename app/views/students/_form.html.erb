@@ -7,7 +7,17 @@
         <div><%= message %></div>
       <% end %>
     </div>
-  
+    <div class="m-10">
+      <%= form.label :about %><br>
+      <%= form.text_field :about %>
+      <% @student.errors.full_messages_for(:about).each do |message| %>
+        <div><%= message %></div>
+      <% end %>
+    </div>
+    <div class="m-10">
+      <%= form.label :school_id %><br>
+      <%= form.collection_select :school_id, School.all, :id, :name, prompt: "Select School" %>
+    </div>
     <div class="m-10">
       <%= form.button %>
     </div>

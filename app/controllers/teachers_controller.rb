@@ -4,6 +4,16 @@ class TeachersController < ApplicationController
   before_action :authenticate_user!
   def index
     @teachers = Teacher.all
+    @teachers = @teachers.search(params[:query]) if params[:query].present?
+    @pagy, @teachers = pagy @teachers.reorder(sort_column => sort_direction), items: params.fetch(:count,10)
+  end
+
+  def sort_column
+    %w{id name}.include?(params[:sort]) ? params[:sort] : "id"
+  end
+
+  def sort_direction
+    %w{asc desc}.include?(params[:direction]) ? params[:direction] : "asc"
   end
 
   def show
@@ -33,11 +43,11 @@ class TeachersController < ApplicationController
   end
 
   def teacher_params
-    params.require(:teacher).permit(:name)
+    params.require(:teacher).permit(:name, :about, :school_id)
   end
 
   def authorize_teacher
-    redirect_to teachers_path, alert: "You are not authorized to perform this action" unless @teacher.user == current_user
+    redirect_to teachers_path, alert: "You are not authorized to perform this action" unless @teacher.user == current_user || current_user.admin?
   end
 
   def update_user_name(teacher, new_name)

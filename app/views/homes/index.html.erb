@@ -1,0 +1,64 @@
+<div class="px-3 text-center">
+  <br/>
+  <h1 class="font-bold text-4xl">Welcome <%= current_user.name %>!</h1>
+</div>
+
+<div class="stats mt-10 grid grid-cols-3 gap-4 justify-center">
+
+  <div class="stat text-center mt-5 mb-5">
+    <div class="stat-figure text-secondary">
+      <%= tabler_icon('users-group', size: '40px', color: 'black') %>
+    </div>
+    <div class="stat-title">Students</div>
+    <div class="stat-value"><%= @student_count %></div>
+  </div>
+  
+  <div class="stat text-center mt-5 mb-5">
+    <div class="stat-figure text-secondary">
+      <%= tabler_icon('users-group', size: '40px', color: 'black') %>
+    </div>
+    <div class="stat-title">Teachers</div>
+    <div class="stat-value"><%= @teacher_count %></div>
+  </div>
+  
+  <div class="stat text-center mt-5 mb-5">
+    <div class="stat-figure text-secondary">
+      <%= tabler_icon('school', size: '40px', color: 'black') %>
+    </div>
+    <div class="stat-title">Schools</div>
+    <div class="stat-value"><%= @school_count %></div>
+  </div>
+  
+  <div class="stat text-center mt-5 mb-5">
+    <div class="stat-figure text-secondary">
+      <%= tabler_icon('users', size: '40px', color: 'black') %>
+    </div>
+    <div class="stat-title">Users</div>
+    <div class="stat-value"><%= @user_count %></div>
+  </div>
+  
+  <div class="stat text-center mt-5 mb-5">
+    <div class="stat-figure text-secondary">
+      <%= tabler_icon('cash', size: '40px', color: 'black') %>
+    </div>
+    <div class="stat-title">Payments</div>
+    <div class="stat-value"><%= @payment_count %></div>
+  </div>
+  
+  <div class="stat text-center mt-5 mb-5">
+    <div class="stat-figure text-secondary">
+      <%= tabler_icon('currency-dollar', size: '40px', color: 'black') %>
+    </div>
+    <div class="stat-title">Fees</div>
+    <div class="stat-value"><%= @fee_count %></div>
+  </div>
+  
+   <div class="stat text-center mt-5 mb-5 col-span-3">
+    <div class="stat-figure text-secondary">
+      <%= tabler_icon('clipboard-list', size: '40px', color: 'black') %>
+    </div>
+    <div class="stat-title">Enrollments</div>
+    <div class="stat-value"><%= @enrollment_count %></div>
+  </div>
+  
+</div>

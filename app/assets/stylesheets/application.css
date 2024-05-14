@@ -1,27 +1,110 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS (and SCSS, if configured) file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- *= require_tree .
- *= require_self
- */
 li{
     margin-right: 20px;
-}
-
-table{
-    text-align: center;
 }
 
 h1{
     font-size:x-large;
     font-weight: 800;
+}
+.stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center; 
+  }
+
+nav {
+  background-color: #333; 
+  padding: 10px 0; 
+}
+
+nav ul {
+  list-style-type: none; 
+  margin: 0;
+  padding: 0;
+  text-align: center; 
+}
+
+nav ul li {
+  display: inline; 
+  margin-right: 20px; 
+}
+
+nav ul li:last-child {
+  margin-right: 0; 
+}
+
+nav ul li a {
+  color: #fff; 
+  text-decoration: none; 
+  font-weight: bold; 
+}
+
+nav ul li a:hover {
+  color: #ffd700; 
+}
+
+nav ul li button {
+  color: #ff4500; 
+  background-color: transparent; 
+  border: none; 
+  cursor: pointer; 
+  font-weight: bold; 
+}
+
+nav ul li button:hover {
+  color: #fff; 
+}  
+
+.stat {
+    background-color: #e9d14d; 
+    border-radius: 8px; 
+    padding: 20px; 
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); 
+  }
+  
+  .stat-figure {
+    margin-bottom: 10px; 
+  }
+  
+  .stat-title {
+    font-weight: bold; 
+  }
+  
+  .stat-value {
+    font-size: 24px; 
+  }
+  
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+table th {
+  border: 1px solid #000;
+  background-color: #e2e8f0;
+  padding: 8px;
+}
+
+table td {
+  border: 1px solid #000;
+  padding: 8px;
+}
+
+table tbody tr:nth-child(even) {
+  background-color: #edf2f7;
+}
+
+.pagy-container .pagy {
+  background-color: #ffffff;
+}
+
+#alert {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+  padding: 10px 15px;
+  margin-bottom: 20px;
+  border-radius: 4px;
 }

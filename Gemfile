@@ -77,8 +77,6 @@ end
 
 gem "devise", "~> 4.9"
 
-gem "flexirest", "~> 1.12"
-
 gem "simple_form", "~> 5.3"
 
 gem "simple_form-tailwind", "~> 0.1.1"
@@ -89,3 +87,8 @@ gem 'rubocop', require: false
 gem "sidekiq", "~> 7.2"
 gem 'mapkick-rb'
 gem "geocoder", "~> 1.8"
+
+gem "pagy"
+gem "pg_search"
+gem "faker"
+gem "tabler_icons_ruby", "~> 3.1"

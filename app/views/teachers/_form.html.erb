@@ -15,7 +15,14 @@
       <%= form.label :name %><br>
       <%= form.text_field :name %>
     </div>
-  
+    <div class="m-10">
+      <%= form.label :about %><br>
+      <%= form.text_field :about %>
+    </div>
+    <div class="m-10">
+      <%= form.label :school_id %><br>
+      <%= form.collection_select :school_id, School.all, :id, :name, prompt: "Select School" %>
+    </div>
     <div class="m-10">
       <%= form.button %>
     </div>

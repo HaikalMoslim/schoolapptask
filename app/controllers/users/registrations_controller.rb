@@ -5,16 +5,15 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def create
     @user = User.new(user_params)
-
     if @user.save
       case @user.role
       when 'admin'
         redirect_to user_session_path, notice: 'Admin was successfully created.'
       when 'student'
-        Student.create(user: @user, name: @user.name)
+        Student.create(user: @user, name: @user.name, school_id: params[:user][:school_id])
         redirect_to user_session_path, notice: 'Student was successfully created.'
       when 'teacher'
-        Teacher.create(user: @user, name: @user.name)
+        Teacher.create(user: @user, name: @user.name, school_id: params[:user][:school_id])
         redirect_to user_session_path, notice: 'Teacher was successfully created.'
       else
         redirect_to root_path, notice: 'User was successfully created.'

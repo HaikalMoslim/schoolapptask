@@ -3,6 +3,16 @@ class PaymentsController < ApplicationController
   before_action :authenticate_user!
   def index
     @payments = Payment.all
+    @payments = @payments.search(params[:query]) if params[:query].present?
+    @pagy, @payments = pagy @payments.reorder(sort_column => sort_direction), items: params.fetch(:count,10)
+  end
+
+  def sort_column
+    %w{buyer_name order_number buyer_email buyer_phone transaction_amount payment_status}.include?(params[:sort]) ? params[:sort] : "buyer_name"
+  end
+
+  def sort_direction
+    %w{asc desc}.include?(params[:direction]) ? params[:direction] : "asc"
   end
 
   def show

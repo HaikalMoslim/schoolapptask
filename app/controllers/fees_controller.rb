@@ -5,9 +5,19 @@ class FeesController < ApplicationController
   # GET /fees or /fees.json
   def index
     @fees = Fee.all
+    @fees = @fees.search(params[:query]) if params[:query].present?
+    @pagy, @fees = pagy @fees.reorder(sort_column => sort_direction), items: params.fetch(:count,10)
   end
 
-  # GET /fees/1 or /fees/1.json
+  def sort_column
+    %w{id name email phone total }.include?(params[:sort]) ? params[:sort] : "id"
+  end
+
+  def sort_direction
+    
+    %w{asc desc}.include?(params[:direction]) ? params[:direction] : "asc"
+  end
+
   # GET /fees/1 or /fees/1.json
 def show
   user_id = current_user.id

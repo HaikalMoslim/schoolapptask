@@ -1,40 +1,51 @@
-<h1 class="mb-10">Fees</h1>
+<div class="w-full">
+  <div class="flex justify-between items-center">
+    <h1 class="font-bold text-4xl">Fees</h1>
+    <% if current_user.role =="teacher" || current_user.role =="admin" %>
+    <%= link_to 'New Fee', new_fee_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+    <% end %>
+</div>
 
-<%if current_user.teacher? %>
-<%= link_to 'Add New Fee', new_fee_path %>
-<% end %>
-
-<table class="border border-black border-spacing-15 mt-10" style="width:100%">
+<table class="mt-10" style="width:100%">
   <thead>
     <tr>
-      <th class="border border-black border-spacing-15">Name</th>
-      <th class="border border-black border-spacing-15">Email</th>
-      <th class="border border-black border-spacing-15">Phone</th>
-      <th class="border border-black border-spacing-15">Total</th>
-      <th class="border border-black border-spacing-15">Action</th>
+      <th><%= sort_link_to "ID", :id, data: {turbo_action: "advance"}%></th>
+      <th><%= sort_link_to "Name", :name, data: {turbo_action: "advance"}%></th>
+      <th><%= sort_link_to "Email", :email, data: {turbo_action: "advance"}%></th>
+      <th><%= sort_link_to "Phone", :phone, data: {turbo_action: "advance"}%></th>
+      <th><%= sort_link_to "Total", :total, data: {turbo_action: "advance"}%></th>
+      <th>Action</th>
     </tr>
   </thead>
   <tbody>
     <% @fees.each do |fee| %>
       <tr>
-        <td class="border border-black border-spacing-15"><%= fee.name %></td>
-        <td class="border border-black border-spacing-15"><%= fee.email %></td>
-        <td class="border border-black border-spacing-15"><%= fee.phone %></td>
-        <td class="border border-black border-spacing-15"><%= fee.total %></td>
-        <%if current_user.teacher? %>
-        <td class="border border-black border-spacing-15 italic"><%= link_to 'Delete', fee, method: :delete, data:{
+        <td><%= fee.id %></td>
+        <td><%= fee.name %></td>
+        <td><%= fee.email %></td>
+        <td><%= fee.phone %></td>
+        <td><%= fee.total %></td>
+        <% if current_user.teacher? || current_user.admin? %>
+        <td class="italic"><%= link_to 'Delete', fee, method: :delete, data:{
           turbo_method: :delete,
           turbo_confirm: "Are you sure?"
       } %></td>
-      <%end%>
-      <%if current_user.student?%>
-      <% if fee.payment_succeeded %>
-        <td class="border border-black border-spacing-15">Payment succeeded!</td>
-      <% else %>
-        <td class="border border-black border-spacing-15"><%= link_to "Payment pending", fee %></td>
       <% end %>
-      <%end%>
+      <% if current_user.student?%>
+      <% if fee.payment_succeeded %>
+        <td>Payment succeeded!</td>
+      <% else %>
+        <td><%= link_to "Payment pending", fee %></td>
+      <% end %>
+      <% end %>
       </tr>
     <% end %>
   </tbody>
 </table>
+
+<div class="pagy-container">
+  <div class="my-16 flex justify-between">
+    <div><%== pagy_info(@pagy) %></div>
+    <div><%== pagy_nav(@pagy) %></div>
+  </div>
+</div>

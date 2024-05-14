@@ -1,8 +1,16 @@
-<%= form_with model: enrollment, url: enrollments_path do |form| %>
+<%= simple_form_for @enrollment, local: true, data: { turbo: false } do |form| %>
+
+  <div class="m-10">
+    <%= form.label :class_name %><br>
+    <%= form.text_field :class_name%>
+    <% @enrollment.errors.full_messages_for(:class_name).each do |message| %>
+      <div><%= message %></div>
+    <% end %>
+  </div>
 
   <div class="m-10">
     <%= form.label :student_id %> <br>
-    <%= form.collection_select :student_id, Student.all, :id, :name, prompt: "Select Student" %>
+    <%= form.collection_select :student_id, Student.all, :id, lambda { |student| "#{student.name} - #{student.school.name}" }, prompt: "Select Student" %>
     <% @enrollment.errors.full_messages_for(:student_id).each do |message| %>
       <div><%= message %></div>
     <% end %>
@@ -10,13 +18,13 @@
 
   <div class="m-10">
     <%= form.label :teacher_id %> <br>
-    <%= form.collection_select :teacher_id, Teacher.all, :id, :name, prompt: "Select Teacher" %>
+    <%= form.collection_select :teacher_id, Teacher.all, :id, lambda { |teacher| "#{teacher.name} - #{teacher.school.name}" }, prompt: "Select Teacher" %>
     <% @enrollment.errors.full_messages_for(:teacher_id).each do |message| %>
       <div><%= message %></div>
     <% end %>
   </div>
 
   <div class="m-10">
-    <%= form.button %>
+    <%= form.submit %>
   </div>
 <% end %>

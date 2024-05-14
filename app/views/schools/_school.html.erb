@@ -23,10 +23,21 @@
     </p>
 
     <p>
-        <strong>Catalogue:</strong>
+        <strong>Catalouge:</strong>
+        <% if school.link.present? %>
         <%= link_to school.link, school.link %>
+        <% else %>
+        No link provided
+        <% end %>
     </p>
-
+    <p>
+        <strong>Website:</strong>
+        <% if school.weblink.present? %>
+        <%= link_to school.weblink, school.weblink %>
+        <% else %>
+        No website provided
+        <% end %>
+    </p>
     <br>
     <%= image_tag "https://api.mapbox.com/styles/v1/mapbox/streets-v12/static/pin-s+ff0000(#{school.longitude},#{school.latitude})/#{school.longitude},#{school.latitude},13.5,0/300x200?access_token=pk.eyJ1IjoibWFyYWJveXl5IiwiYSI6ImNsdTZmZ3Q4ZDF4aDgyamw4dHowYm83NG8ifQ.rRl-OK2filVU0b3wr9pgMQ"%>
 
