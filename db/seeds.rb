@@ -3,7 +3,7 @@ address = "Taman Soga, 83000 Batu Pahat, Johor"
 link = "https://sandbox.securepay.my/pages/Sx8NcoER"
 School.create(name:, address:, link:)
 
-admin = User.create!(
+User.create!(
   email: 'admin@admin.com',
   password: 'admin123',
   password_confirmation: 'admin123',
