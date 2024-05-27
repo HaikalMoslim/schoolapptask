@@ -112,7 +112,4 @@ Rails.application.configure do
     :password             => 'ktzflfcykzshtaag',
     :enable_starttls_auto => true
   } 
-
-  config.assets.digest = true
-
 end
