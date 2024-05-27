@@ -1,52 +1,35 @@
-<div id="<%= dom_id school %>">
-
-    <h1>School Details</h1>
-
-    <p>
-        <strong>Name:</strong>
-        <%= school.name %>
-    </p>
-
-    <p>
-        <strong>Address:</strong>
-        <%= school.address %>
-    </p>
-    
-    <p>
-        <strong>Latitude:</strong>
-        <%= school.latitude %>
-    </p>
-
-    <p>
-        <strong>Longitude:</strong>
-        <%= school.longitude %>
-    </p>
-
-    <p>
-        <strong>Catalouge:</strong>
-        <% if school.link.present? %>
-        <%= link_to school.link, school.link %>
-        <% else %>
-        No link provided
-        <% end %>
-    </p>
-    <p>
-        <strong>Website:</strong>
-        <% if school.weblink.present? %>
-        <%= link_to school.weblink, school.weblink %>
-        <% else %>
-        No website provided
-        <% end %>
-    </p>
-    <br>
-    <%= image_tag "https://api.mapbox.com/styles/v1/mapbox/streets-v12/static/pin-s+ff0000(#{school.longitude},#{school.latitude})/#{school.longitude},#{school.latitude},13.5,0/300x200?access_token=pk.eyJ1IjoibWFyYWJveXl5IiwiYSI6ImNsdTZmZ3Q4ZDF4aDgyamw4dHowYm83NG8ifQ.rRl-OK2filVU0b3wr9pgMQ"%>
-
-</div>
-
-<div id="<%= dom_id school %>">
-  <% if action_name != "show" %>
-    <%= link_to "Show this school", school, class: "rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-    <%= link_to "Edit this school", edit_school_path(school), class: "rounded-lg py-3 ml-2 px-5 bg-gray-100 inline-block font-medium" %>
-    <hr class="mt-6">
-  <% end %>
+<div>
+  <h1 class="font-bold text-2xl mb-4">School Details</h1>
+  <p>
+    <strong>Name:</strong> <%= school.name %>
+  </p>
+  <p>
+    <strong>Address:</strong> <%= school.address %>
+  </p>
+  <p>
+    <strong>About:</strong> <%= school.about %>
+  </p>
+  <p>
+    <strong>Latitude:</strong> <%= school.latitude %>
+  </p>
+  <p>
+    <strong>Longitude:</strong> <%= school.longitude %>
+  </p>
+  <p>
+    <strong>Catalogue:</strong> 
+    <% if school.link.present? %>
+      <%= link_to school.link, school.link %>
+    <% else %>
+      No link provided
+    <% end %>
+  </p>
+  <p class="mb-4">
+    <strong>Website:</strong> 
+    <% if school.weblink.present? %>
+      <%= link_to school.weblink, school.weblink %>
+    <% else %>
+      No website provided
+    <% end %>
+  </p>
+  <%= image_tag "https://api.mapbox.com/styles/v1/mapbox/streets-v12/static/pin-s+ff0000(#{school.longitude},#{school.latitude})/#{school.longitude},#{school.latitude},13.5,0/300x200?access_token=pk.eyJ1IjoibWFyYWJveXl5IiwiYSI6ImNsdTZmZ3Q4ZDF4aDgyamw4dHowYm83NG8ifQ.rRl-OK2filVU0b3wr9pgMQ" %>
 </div>

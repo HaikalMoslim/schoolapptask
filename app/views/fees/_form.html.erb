@@ -1,38 +1,39 @@
-<%= simple_form_for @fee, local: true, data: { turbo: false } do |form| %>
-  
- 
-    <%= form.hidden_field :user_id, value: current_user.id, class:"form-control", readonly:true %>
+<%= simple_form_for fee, local: true, data: { turbo: false } do |form| %>
+  <%= form.hidden_field :user_id, value: current_user.id, class: "form-control", readonly: true %>
 
   <div class="m-10">
-    <%= form.label :name %><br>
-    <%= form.text_field :name%>
-    <% @fee.errors.full_messages_for(:name).each do |message| %>
-      <div><%= message %></div>
-    <% end %>
-  </div>
-  <div class="m-10">
-    <%= form.label :phone %><br>
-    <%= form.text_field :phone %>
-    <% @fee.errors.full_messages_for(:phone).each do |message| %>
-      <div><%= message %></div>
-    <% end %>
-  </div>
-  <div class="m-10">
-    <%= form.label :email %><br>
-    <%= form.text_field :email%>
-    <% @fee.errors.full_messages_for(:email).each do |message| %>
-      <div><%= message %></div>
-    <% end %>
-  </div>
-  <div class="m-10">
-    <%= form.label :total %><br>
-    <%= form.number_field :total, class: 'form-control' %>
-    <% @fee.errors.full_messages_for(:total).each do |message| %>
-      <div><%= message %></div>
+    <%= form.label :name, class: "form-label" %><br>
+    <%= form.text_field :name, class: "form-input" %>
+    <% fee.errors.full_messages_for(:name).each do |message| %>
+      <div class="text-red-500"><%= message %></div>
     <% end %>
   </div>
 
   <div class="m-10">
-    <%= form.submit %>
+    <%= form.label :phone, class: "form-label" %><br>
+    <%= form.text_field :phone, class: "form-input" %>
+    <% fee.errors.full_messages_for(:phone).each do |message| %>
+      <div class="text-red-500"><%= message %></div>
+    <% end %>
+  </div>
+
+  <div class="m-10">
+    <%= form.label :email, class: "form-label" %><br>
+    <%= form.text_field :email, class: "form-input" %>
+    <% fee.errors.full_messages_for(:email).each do |message| %>
+      <div class="text-red-500"><%= message %></div>
+    <% end %>
+  </div>
+
+  <div class="m-10">
+    <%= form.label :total, class: "form-label" %><br>
+    <%= form.number_field :total, class: "form-input" %>
+    <% fee.errors.full_messages_for(:total).each do |message| %>
+      <div class="text-red-500"><%= message %></div>
+    <% end %>
+  </div>
+
+  <div class="m-10">
+    <%= form.submit class: "btn-submit" %>
   </div>
 <% end %>

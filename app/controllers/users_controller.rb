@@ -4,7 +4,7 @@ class UsersController < ApplicationController
   def index
     @users = User.all
     @users = @users.search(params[:query]) if params[:query].present?
-    @pagy, @users = pagy @users.reorder(sort_column => sort_direction), items: params.fetch(:count,2)
+    @pagy, @users = pagy @users.reorder(sort_column => sort_direction), items: params.fetch(:count,10)
   end
 
   def sort_column

@@ -1,21 +1,23 @@
 <%= form_with model: user do |form| %>
-  
-    <div class="m-10">
-        <%= form.label :name %><br>
-        <%= form.text_field :name %>
+  <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden">
+    <div class="p-6">
+      <div class="m-4">
+        <%= form.label :name, class: 'form-label' %>
+        <%= form.text_field :name, class: 'form-input' %>
         <% @user.errors.full_messages_for(:name).each do |message| %>
-        <div><%= message %></div>
+          <div class="text-red-500"><%= message %></div>
         <% end %>
-    </div>
-    <div class="m-10">
-        <%= form.label :email %><br>
-        <%= form.text_field :email %>
+      </div>
+      <div class="m-4">
+        <%= form.label :email, class: 'form-label' %>
+        <%= form.text_field :email, class: 'form-input' %>
         <% @user.errors.full_messages_for(:email).each do |message| %>
-        <div><%= message %></div>
+          <div class="text-red-500"><%= message %></div>
         <% end %>
+      </div>
+      <div class="m-4">
+        <%= form.button class: 'btn-submit' %>
+      </div>
     </div>
-    <div class="m-10">
-      <%= form.button %>
-    </div>
-  <% end %>
-  
+  </div>
+<% end %>

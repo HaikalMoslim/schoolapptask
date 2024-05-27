@@ -1,30 +1,27 @@
 <%= form_with model: teacher do |form| %>
-    <% if teacher.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(teacher.errors.count, "error") %> prohibited this teacher from being saved:</h2>
-  
-        <ul>
-        <% teacher.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
+  <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden">
+    <div class="p-6">
+      <div class="m-4">
+        <%= form.label :name, class: 'form-label' %>
+        <%= form.text_field :name, class: 'form-input' %>
+        <% @teacher.errors.full_messages_for(:name).each do |message| %>
+          <div class="text-red-500"><%= message %></div>
         <% end %>
-        </ul>
       </div>
-    <% end %>
-  
-    <div class="m-10">
-      <%= form.label :name %><br>
-      <%= form.text_field :name %>
+      <div class="m-4">
+        <%= form.label :about, class: 'form-label' %>
+        <%= form.text_field :about, class: 'form-input' %>
+        <% @teacher.errors.full_messages_for(:about).each do |message| %>
+          <div class="text-red-500"><%= message %></div>
+        <% end %>
+      </div>
+      <div class="m-4">
+        <%= form.label :school_id, class: 'form-label' %>
+        <%= form.collection_select :school_id, School.all, :id, :name, { prompt: "Select School" }, class: 'form-input' %>
+      </div>
+      <div class="m-4">
+        <%= form.button class: 'btn-submit' %>
+      </div>
     </div>
-    <div class="m-10">
-      <%= form.label :about %><br>
-      <%= form.text_field :about %>
-    </div>
-    <div class="m-10">
-      <%= form.label :school_id %><br>
-      <%= form.collection_select :school_id, School.all, :id, :name, prompt: "Select School" %>
-    </div>
-    <div class="m-10">
-      <%= form.button %>
-    </div>
-  <% end %>
-  
+  </div>
+<% end %>

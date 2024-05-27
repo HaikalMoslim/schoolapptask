@@ -1,3 +1,12 @@
+@import "students";
+@import "teachers";
+@import "users";
+@import "enrollments";
+@import "schools";
+@import "payments";
+@import "fees";
+@import "devise";
+
 li{
     margin-right: 20px;
 }
@@ -108,3 +117,4 @@ table tbody tr:nth-child(even) {
   margin-bottom: 20px;
   border-radius: 4px;
 }
+

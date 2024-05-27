@@ -1,55 +1,58 @@
 <%= simple_form_for @school, local: true, data: { turbo: false } do |form| %>
-
-  <div class="m-10">
-  <%= form.label :name %><br>
-  <%= form.text_field :name%>
-  <% @school.errors.full_messages_for(:name).each do |message| %>
-    <div><%= message %></div>
-  <% end %>
+  <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden">
+    <div class="p-6">
+      <div class="m-4">
+        <%= form.label :name, class: 'form-label' %><br>
+        <%= form.text_field :name, class: 'form-input' %>
+        <% @school.errors.full_messages_for(:name).each do |message| %>
+          <div class="text-red-500"><%= message %></div>
+        <% end %>
+      </div>
+      <div class="m-4">
+        <%= form.label :address, class: 'form-label' %><br>
+        <%= form.text_field :address, class: 'form-input' %>
+        <% @school.errors.full_messages_for(:address).each do |message| %>
+          <div class="text-red-500"><%= message %></div>
+        <% end %>
+      </div>
+      <div class="m-4">
+        <%= form.label :about, class: 'form-label' %><br>
+        <%= form.text_field :about, class: 'form-input' %>
+        <% @school.errors.full_messages_for(:about).each do |message| %>
+          <div class="text-red-500"><%= message %></div>
+        <% end %>
+      </div>
+      <div class="m-4">
+        <%= form.label :latitude, class: 'form-label' %><br>
+        <%= form.text_field :latitude, class: 'form-input' %>
+        <% @school.errors.full_messages_for(:latitude).each do |message| %>
+          <div class="text-red-500"><%= message %></div>
+        <% end %>
+      </div>
+      <div class="m-4">
+        <%= form.label :longitude, class: 'form-label' %><br>
+        <%= form.text_field :longitude, class: 'form-input' %>
+        <% @school.errors.full_messages_for(:longitude).each do |message| %>
+          <div class="text-red-500"><%= message %></div>
+        <% end %>
+      </div>
+      <div class="m-4">
+        <%= form.label :link, class: 'form-label' %><br>
+        <%= form.text_field :link, class: 'form-input' %>
+        <% @school.errors.full_messages_for(:link).each do |message| %>
+          <div class="text-red-500"><%= message %></div>
+        <% end %>
+      </div>
+      <div class="m-4">
+        <%= form.label :weblink, class: 'form-label' %><br>
+        <%= form.text_field :weblink, class: 'form-input' %>
+        <% @school.errors.full_messages_for(:weblink).each do |message| %>
+          <div class="text-red-500"><%= message %></div>
+        <% end %>
+      </div>
+      <div class="m-4">
+        <%= form.submit class: 'btn-submit' %>
+      </div>
+    </div>
   </div>
-  <div class="m-10">
-    <%= form.label :address %><br>
-    <%= form.text_field :address %>
-    <% @school.errors.full_messages_for(:address).each do |message| %>
-      <div><%= message %></div>
-    <% end %>
-  </div>
-  <div class="m-10">
-    <%= form.label :about %><br>
-    <%= form.text_field :about %>
-    <% @school.errors.full_messages_for(:about).each do |message| %>
-      <div><%= message %></div>
-    <% end %>
-  </div>
-  <div class="m-10">
-    <%= form.label :latitude %><br>
-    <%= form.text_field :latitude%>
-    <% @school.errors.full_messages_for(:latitude).each do |message| %>
-      <div><%= message %></div>
-    <% end %>
-  </div>
-  <div class="m-10">
-    <%= form.label :longitude %><br>
-    <%= form.text_field :longitude, class: 'form-control' %>
-    <% @school.errors.full_messages_for(:longitude).each do |message| %>
-      <div><%= message %></div>
-    <% end %>
-  </div>
-  <div class="m-10">
-    <%= form.label :link %><br>
-    <%= form.text_field :link, class: 'form-control' %>
-    <% @school.errors.full_messages_for(:link).each do |message| %>
-      <div><%= message %></div>
-    <% end %>
-  </div>
-  <div class="m-10">
-    <%= form.label :weblink %><br>
-    <%= form.text_field :weblink, class: 'form-control' %>
-    <% @school.errors.full_messages_for(:weblink).each do |message| %>
-      <div><%= message %></div>
-    <% end %>
-  </div>
-<div class="m-10">
-  <%= form.submit %>
-</div>
 <% end %>

@@ -1,8 +1,20 @@
-<h1 class="mb-5"><%= @student.name %></h1>
-
-<%= link_to 'Edit', edit_student_path(@student) %> |
-<%= link_to 'Back', students_path %> |
-<%= link_to 'Delete', student_path(@student), data:{
-    turbo_method: :delete,
-    turbo_confirm: "Are you sure?"
-} %>
+<div class="container mx-auto p-4">
+  <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden">
+    <div class="p-6">
+      <h1 class="text-2xl font-bold mb-2"><%= @student.name %></h1>
+      
+      <!-- Student Details -->
+      <div class="mb-4">
+        <strong>Age:</strong> <%= @student.about %><br>
+        <strong>Email:</strong> <%= @student.school&.name %><br>
+      </div>
+      
+      <!-- Action Links -->
+      <div class="mb-4">
+        <%= link_to 'Edit', edit_student_path(@student), class: 'action-link edit-link' %>
+        <%= link_to 'Back', students_path, class: 'action-link back-link' %>
+        <%= link_to 'Delete', student_path(@student), method: :delete, data: { confirm: "Are you sure?" }, class: 'action-link delete-link', 'data-turbo-method': :delete, 'data-turbo-confirm': "Are you sure?" %>
+      </div>
+    </div>
+  </div>
+</div>

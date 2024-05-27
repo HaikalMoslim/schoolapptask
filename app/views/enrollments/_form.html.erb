@@ -1,30 +1,33 @@
 <%= simple_form_for @enrollment, local: true, data: { turbo: false } do |form| %>
+  <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden">
+    <div class="p-6">
+      <div class="m-4">
+        <%= form.label :class_name, class: 'form-label' %><br>
+        <%= form.text_field :class_name, class: 'form-input' %>
+        <% @enrollment.errors.full_messages_for(:class_name).each do |message| %>
+          <div class="text-red-500"><%= message %></div>
+        <% end %>
+      </div>
 
-  <div class="m-10">
-    <%= form.label :class_name %><br>
-    <%= form.text_field :class_name%>
-    <% @enrollment.errors.full_messages_for(:class_name).each do |message| %>
-      <div><%= message %></div>
-    <% end %>
-  </div>
+      <div class="m-4">
+        <%= form.label :student_id, class: 'form-label' %><br>
+        <%= form.collection_select :student_id, Student.all, :id, lambda { |student| "#{student.name} - #{student.school.name}" }, { prompt: "Select Student" }, class: 'form-input' %>
+        <% @enrollment.errors.full_messages_for(:student_id).each do |message| %>
+          <div class="text-red-500"><%= message %></div>
+        <% end %>
+      </div>
 
-  <div class="m-10">
-    <%= form.label :student_id %> <br>
-    <%= form.collection_select :student_id, Student.all, :id, lambda { |student| "#{student.name} - #{student.school.name}" }, prompt: "Select Student" %>
-    <% @enrollment.errors.full_messages_for(:student_id).each do |message| %>
-      <div><%= message %></div>
-    <% end %>
-  </div>
+      <div class="m-4">
+        <%= form.label :teacher_id, class: 'form-label' %><br>
+        <%= form.collection_select :teacher_id, Teacher.all, :id, lambda { |teacher| "#{teacher.name} - #{teacher.school.name}" }, { prompt: "Select Teacher" }, class: 'form-input' %>
+        <% @enrollment.errors.full_messages_for(:teacher_id).each do |message| %>
+          <div class="text-red-500"><%= message %></div>
+        <% end %>
+      </div>
 
-  <div class="m-10">
-    <%= form.label :teacher_id %> <br>
-    <%= form.collection_select :teacher_id, Teacher.all, :id, lambda { |teacher| "#{teacher.name} - #{teacher.school.name}" }, prompt: "Select Teacher" %>
-    <% @enrollment.errors.full_messages_for(:teacher_id).each do |message| %>
-      <div><%= message %></div>
-    <% end %>
-  </div>
-
-  <div class="m-10">
-    <%= form.submit %>
+      <div class="m-4">
+        <%= form.submit class: 'btn-submit' %>
+      </div>
+    </div>
   </div>
 <% end %>

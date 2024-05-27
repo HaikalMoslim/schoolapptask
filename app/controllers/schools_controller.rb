@@ -5,7 +5,12 @@ class SchoolsController < ApplicationController
   def index
     @schools = School.all
     @schools = @schools.search(params[:query]) if params[:query].present?
-    @pagy, @schools = pagy @schools.reorder(sort_column => sort_direction), items: params.fetch(:count, 10)
+
+    # Pagination setup
+    @pagy, @paginated_schools = pagy(@schools.reorder(sort_column => sort_direction), items: params.fetch(:count, 10))
+
+    # Retrieve all schools for the map
+    @all_schools = @schools
   end
 
   def sort_column

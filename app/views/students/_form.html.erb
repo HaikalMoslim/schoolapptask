@@ -1,25 +1,27 @@
 <%= form_with model: student do |form| %>
-  
-    <div class="m-10">
-      <%= form.label :name %><br>
-      <%= form.text_field :name %>
-      <% @student.errors.full_messages_for(:name).each do |message| %>
-        <div><%= message %></div>
-      <% end %>
+  <div class="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden">
+    <div class="p-6">
+      <div class="m-4">
+        <%= form.label :name, class: 'form-label' %>
+        <%= form.text_field :name, class: 'form-input' %>
+        <% @student.errors.full_messages_for(:name).each do |message| %>
+          <div class="text-red-500"><%= message %></div>
+        <% end %>
+      </div>
+      <div class="m-4">
+        <%= form.label :about, class: 'form-label' %>
+        <%= form.text_field :about, class: 'form-input' %>
+        <% @student.errors.full_messages_for(:about).each do |message| %>
+          <div class="text-red-500"><%= message %></div>
+        <% end %>
+      </div>
+      <div class="m-4">
+        <%= form.label :school_id, class: 'form-label' %>
+        <%= form.collection_select :school_id, School.all, :id, :name, { prompt: "Select School" }, class: 'form-input' %>
+      </div>
+      <div class="m-4">
+        <%= form.button class: 'btn-submit' %>
+      </div>
     </div>
-    <div class="m-10">
-      <%= form.label :about %><br>
-      <%= form.text_field :about %>
-      <% @student.errors.full_messages_for(:about).each do |message| %>
-        <div><%= message %></div>
-      <% end %>
-    </div>
-    <div class="m-10">
-      <%= form.label :school_id %><br>
-      <%= form.collection_select :school_id, School.all, :id, :name, prompt: "Select School" %>
-    </div>
-    <div class="m-10">
-      <%= form.button %>
-    </div>
-  <% end %>
-  
+  </div>
+<% end %>
