@@ -1,11 +1,11 @@
-@import "students";
-@import "teachers";
-@import "users";
-@import "enrollments";
-@import "schools";
-@import "payments";
-@import "fees";
-@import "devise";
+@import "layouts/students";
+@import "layouts/teachers";
+@import "layouts/users";
+@import "layouts/enrollments";
+@import "layouts/schools";
+@import "layouts/payments";
+@import "layouts/fees";
+@import "layouts/devise";
 
 li{
     margin-right: 20px;

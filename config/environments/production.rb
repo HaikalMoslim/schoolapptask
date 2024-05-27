@@ -111,5 +111,5 @@ Rails.application.configure do
     :user_name            => 'haikalmoslim11@gmail.com',
     :password             => 'ktzflfcykzshtaag',
     :enable_starttls_auto => true
-  }
+  } 
 end
