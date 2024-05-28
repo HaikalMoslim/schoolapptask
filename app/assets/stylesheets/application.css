@@ -5,7 +5,7 @@
 @import "schools";
 @import "payments";
 @import "fees";
-@import "devise";
+@import "devise.css";
 
 li{
     margin-right: 20px;
