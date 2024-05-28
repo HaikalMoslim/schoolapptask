@@ -1,3 +1,12 @@
+@import "students";
+@import "teachers";
+@import "users";
+@import "enrollments";
+@import "schools";
+@import "payments";
+@import "fees";
+@import "devise.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
